@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './BooksAPI'
 import Book from './Book';
 import {Link} from 'react-router-dom';
 
@@ -17,6 +17,11 @@ class Search extends Component {
         BooksAPI.search(this.state.query).then(response => {
             let bookList = [];
              if (response !== undefined && response.length) {
+               const list = {};
+                this.props.books.forEach(book => list[book.id] = book.shelf);
+                response.forEach(book => {
+                    book.shelf = list[book.id] || 'none';
+                });
                bookList = response;
               }
               this.setState({searchBooks: bookList});
@@ -45,7 +50,7 @@ class Search extends Component {
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
               <input type="text" placeholder="Search by title or author"
-                                value={this.state.query} onChange={(e) => this.changeQueryValue(e.target.value)}/>
+                                 onChange={(e) => this.changeQueryValue(e.target.value)}/>
 
             </div>
           </div>
@@ -63,4 +68,4 @@ class Search extends Component {
 
 }
 
-export default Search;
+export default Search
