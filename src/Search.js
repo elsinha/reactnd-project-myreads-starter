@@ -28,7 +28,7 @@ class Search extends Component {
           })
         }
         else{
-
+          this.setState({searchBooks: []});
         }
       }
     componentWillReceiveProps = (props) => {
